@@ -29,7 +29,7 @@ builder.Services.AddHttpContextAccessor();
             
             // Enum değerlerini Swagger'da göster
             c.UseInlineDefinitionsForEnums();
-        }); // Eksik parantez - syntax hatası
+        });
 
 // Add Core Services (Security, Application)
 builder.Services.AddCoreServices();

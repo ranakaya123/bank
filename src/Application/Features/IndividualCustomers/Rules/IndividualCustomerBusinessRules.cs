@@ -23,9 +23,8 @@ public class IndividualCustomerBusinessRules
 
     public async Task CustomerNumberCanNotBeDuplicatedWhenInserted(string customerNumber)
     {
-        // Bugbot test için mantık hatası - yanlış kontrol
         var result = await _individualCustomerRepository.GetAsync(x => x.CustomerNumber == customerNumber);
-        if (result == null) throw new BusinessException(IndividualCustomerMessages.CustomerNumberExists); // Yanlış kontrol - null olduğunda exception fırlatıyor
+        if (result != null) throw new BusinessException(IndividualCustomerMessages.CustomerNumberExists);
     }
 
     public async Task NationalIdCanNotBeDuplicatedWhenInserted(string nationalId)
