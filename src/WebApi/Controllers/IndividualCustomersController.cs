@@ -37,6 +37,10 @@ public class IndividualCustomersController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<GetIndividualCustomerByIdResponseDto>> GetById(Guid id)
     {
+        // Bugbot test için kasıtlı hata - null reference exception
+        string testString = null;
+        var length = testString.Length; // Bu satır null reference exception'a neden olacak
+        
         var query = new GetIndividualCustomerByIdQuery { Id = id };
         var response = await _mediator.Send(query);
         return Ok(response);
