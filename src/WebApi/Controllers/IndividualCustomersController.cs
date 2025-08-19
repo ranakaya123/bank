@@ -26,6 +26,7 @@ public class IndividualCustomersController : ControllerBase
         try
         {
             var response = await _mediator.Send(command);
+            // Bugbot test için kasıtlı hata - response null kontrolü yok!
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
         catch (Exception ex)
@@ -37,6 +38,10 @@ public class IndividualCustomersController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<GetIndividualCustomerByIdResponseDto>> GetById(Guid id)
     {
+        // Bugbot test için kasıtlı null reference exception
+        string testString = null;
+        var length = testString.Length; // Bu satır null reference exception'a neden olacak!
+        
         var query = new GetIndividualCustomerByIdQuery { Id = id };
         var response = await _mediator.Send(query);
         return Ok(response);
