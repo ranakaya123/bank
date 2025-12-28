@@ -26,6 +26,9 @@ public class IndividualCustomersController : ControllerBase
         try
         {
             var response = await _mediator.Send(command);
+            if (response == null)
+                return BadRequest(new { error = "Response is null" });
+                
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
         catch (Exception ex)
@@ -57,6 +60,9 @@ public class IndividualCustomersController : ControllerBase
     [HttpPut("{id:guid}")]
     public async Task<ActionResult<UpdateIndividualCustomerResponseDto>> Update(Guid id, [FromBody] UpdateIndividualCustomerCommand command)
     {
+        if (command == null)
+            return BadRequest(new { error = "Command cannot be null" });
+            
         command.Id = id;
         var response = await _mediator.Send(command);
         return Ok(response);
